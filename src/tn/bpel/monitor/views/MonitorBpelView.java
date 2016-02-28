@@ -15,11 +15,11 @@ import tn.bpel.monitor.Activator;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Text;
-
+ 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.List; 
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -36,9 +36,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Combo;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.widgets.Combo; 
+import org.eclipse.wb.swt.SWTResourceManager; 
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
@@ -54,6 +53,7 @@ public class MonitorBpelView extends ViewPart {
 	private Label lbproject_info;
 
 	public MonitorBpelView() {
+		setTitleImage(SWTResourceManager.getImage(MonitorBpelView.class, "/icons/full/obj16/generic_elements.png"));
 	}
 
 	public void createPartControl(final Composite parent) {
@@ -159,24 +159,42 @@ public class MonitorBpelView extends ViewPart {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				 getExpression();
-
-
+ 
 			}
 		});
 		new Label(parent, SWT.NONE);
 
 		Composite composite = new Composite(parent, SWT.NONE);
-		composite.setLayout(new FillLayout(SWT.HORIZONTAL));
+		composite.setLayout(new GridLayout(2, false));
 		GridData gd_composite = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
-		gd_composite.widthHint = 82;
+		gd_composite.widthHint = 206;
 		composite.setLayoutData(gd_composite);
 
 		// ################# RAW 4 ##################
 
 		Button button = new Button(composite, SWT.PUSH);
+		GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_button.widthHint = 79;
+		button.setLayoutData(gd_button);
 		button.setText("Run");
 
 		Button btnNewButton = new Button(composite, SWT.NONE);
+		GridData gd_btnNewButton = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+		gd_btnNewButton.widthHint = 83;
+		btnNewButton.setLayoutData(gd_btnNewButton);
+		btnNewButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Shell shell = comboProjectList.getCombo().getShell();
+				try {
+					transformator.removeMonitor();
+					MessageDialog.openInformation(shell, "Monitor bpel", "Monitor has been cleaned up");
+					
+				} catch (Exception e1) { 
+					e1.printStackTrace();
+				}
+			}
+		});
 		btnNewButton.setSelection(true);
 		btnNewButton.setText("Clean");
 		new Label(parent, SWT.NONE);
