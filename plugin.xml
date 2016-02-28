@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Bpel Monitor"
+            id="tn.bpel.monitor">
+      </category>
+      <view
+            name="Bpel monitor"
+            icon="icons/sample.gif"
+            category="tn.bpel.monitor"
+            class="tn.bpel.monitor.views.MonitorBpelView"
+            id="tn.bpel.monitor.views.MonitorBpelView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="tn.bpel.monitor.views.MonitorBpelView">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+
+</plugin>
